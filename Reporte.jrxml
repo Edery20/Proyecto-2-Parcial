@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="522e0278-ad7b-4965-ab92-2b3ea434462b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select t1.seguro , sum (a1.aportacion) -- seguro, count( aportacion) total
+from tiposeguros as t1
+inner join contrto as c1 on t1.idseguros = c1.idseguros
+inner join aportaciones as a1 on c1.idcontrato = a1.idcontrato
+group by t1.seguro]]>
+	</queryString>
+	<field name="seguro" class="java.lang.String"/>
+	<field name="sum" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="74" splitType="Stretch">
+			<staticText>
+				<reportElement x="146" y="0" width="226" height="74" uuid="3a36da82-5644-45bc-a491-7c2c2ed000c9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[ASEGURADORA]]></text>
+			</staticText>
+			<image>
+				<reportElement x="372" y="0" width="118" height="74" uuid="a3d16477-2f6e-4588-b649-940bb198cc6f"/>
+				<imageExpression><![CDATA["D:\\Descargas\\asfasf.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="52" y="0" width="454" height="35" uuid="9f06927a-50b9-4449-9571-229008fff3c9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Total Recaudado por tipo de Seguro]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="287" splitType="Stretch">
+			<barChart>
+				<chart>
+					<reportElement x="52" y="18" width="454" height="269" uuid="1d9354a9-1af5-4f16-ab86-6797f2da3aac"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Valor Recaudado"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{seguro}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{sum}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot>
+						<seriesColor seriesOrder="0" color="#006666"/>
+					</plot>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</summary>
+</jasperReport>
